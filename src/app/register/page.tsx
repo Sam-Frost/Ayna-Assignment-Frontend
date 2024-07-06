@@ -20,13 +20,23 @@ import { Label } from "@/components/ui/label";
 
 import useStrapiApi from "@/hooks/useStrapiApi";
 import CustomAlert from "@/components/Alert";
+import useLocalStorage from "@/hooks/localStorageHook";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+
+  const router = useRouter();
+
+  
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [registrationError, setRegistrationError] = useState<boolean>(false);
+
+
+  const [token, setToken, clearToken] = useLocalStorage('jwtToken', '');
+  const [user, setUser, clearUser] = useLocalStorage('user', '');
 
   const { loading, postData } = useStrapiApi();
 
@@ -37,14 +47,19 @@ export default function Register() {
       password: password,
     };
 
-    const response = await postData("/api/auth/local/register", userData);
+    const response = await postData("/auth/local/register", userData);
 
     if (response == null) {
       setRegistrationError(true);
-    }
-
+    } else {
+      
     console.log("Printing data from register page");
     console.log(response);
+    setToken(response.jwt);
+    setUser(response.user);
+    router.push('/chat');
+    }
+
   }
 
   return (

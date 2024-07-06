@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function Day() {
+interface DayProps {
+  date:  string
+}
+
+export default function Day({ date }: DayProps) {
   return (
-    <div  className='text-white'>4 July, 2024</div>
+    <div  className='text-[#506A86] bg-[#E3FEFF] px-2 rounded-sm'>{date}</div>
   )
 }

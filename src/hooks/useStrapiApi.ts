@@ -1,26 +1,34 @@
 // File: hooks/useStrapiApi.js
 import { useState } from 'react';
 import axios from 'axios';
+import useLocalStorage from './localStorageHook';
 // import { BACKEND_URL, STRAPI_TOKEN } from '@/config';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL; // Replace with your Strapi backend URL
 
 const useStrapiApi = () => {
+
   const [loading, setLoading] = useState(false);
+
+  const [token, setToken, clearToken] = useLocalStorage('jwtToken', '');
+
   const api = axios.create({
     baseURL ,
-    // headers: {
-    //   // 'Content-Type': 'application/json',
-    //   // Assuming token is stored in localStorage or state
-    //   // Authorization: `Bearer ${STRAPI_TOKEN}` // Replace with your method of token storage
-    // }
   });
 
   // Function to fetch data from Strapi
   const fetchData = async (endpoint: string) => {
     setLoading(true);
     try {
-      const response = await api.get(endpoint);
+      const response = await api.get(endpoint, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}` // Replace with your method of token storage
+        }
+      } 
+      );
+      
+      console.log("FROM STRAPING PRITING: ", response.data);
       return response.data;
     } catch (error) {
       return null;

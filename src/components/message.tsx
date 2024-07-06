@@ -5,10 +5,11 @@ import React from "react";
 interface MessageProps {
   align: string,
   text: string,
-  time: string
+  time: string,
+  character: string
 }
 
-export default function Message({ align, text, time }: MessageProps) {
+export default function Message({ align, text, time, character  }: MessageProps) {
   const alignment = align == "left" ? "self-start" : "self-end";
   const flexDirection = align == "left" ? "flex-row" : "flex-row-reverse";
   return (
@@ -17,11 +18,13 @@ export default function Message({ align, text, time }: MessageProps) {
     >
       <div>
         <Avatar>
-          <AvatarImage
-            className="rounded-full"
-            src="https://github.com/shadcn.png"
-          />
-          <AvatarFallback>CN</AvatarFallback>
+          {character === "CB" ? 
+           <AvatarImage
+           className="rounded-full"
+           src="https://github.com/shadcn.png"
+         /> : <></>}
+         
+          <AvatarFallback>{character}</AvatarFallback>
         </Avatar>
       </div>
       <div className="bg-[#474747] rounded-full px-3 py-1 text-white text-sm flex flex-row justify-between items-center">
