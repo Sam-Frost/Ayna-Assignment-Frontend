@@ -82,7 +82,7 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"),
-    function ({ addUtilities }) {
+    function ({ addUtilities } : any) {
       addUtilities({
         '.scrollbar-none': {
           'scrollbar-width': 'none', /* Firefox */
