@@ -39,9 +39,6 @@ export default function Login() {
 
   async function loginUser() {
 
-
-    setEmail("sambrofrost@gmail.com");
-    setPassword("samtestpass");
     const userData = {
       "identifier": email,
       "password": password,

@@ -20,6 +20,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<any[]>([]);
   const [messageInput, setMessageInput] = useState('');
   const [user, setUser, clearUser] = useLocalStorage('user', '');
+  const [token, setToken, clearToken] = useLocalStorage('jwtToken', '');
 
   const { loading, fetchData } = useStrapiApi();
 
@@ -74,16 +75,16 @@ export default function Chat() {
     if (messageInput.trim() !== '') {
       const message = {
         message: messageInput.trim(),
-        userId: user.id
+        userId: user.id,
+        token: token
       };
       const messageData = {
         sender: "user",
         data: {
           message: messageInput,
-          time: getCurrentDateTime()
+          time: getCurrentDateTime(),
         }
       };
-      console.log(messageData);
       setMessages((prevMessages) => [...prevMessages, messageData]);
       socket.emit('chat-message', { message });
       setMessageInput('');
