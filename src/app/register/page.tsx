@@ -22,7 +22,6 @@ import useStrapiApi from "@/hooks/useStrapiApi";
 import CustomAlert from "@/components/Alert";
 import useLocalStorage from "@/hooks/localStorageHook";
 import { useRouter } from "next/navigation";
-import e from "cors";
 
 export default function Register() {
 
