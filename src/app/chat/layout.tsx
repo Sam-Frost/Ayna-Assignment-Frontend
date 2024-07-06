@@ -24,7 +24,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         token = token.substring(1, token.length - 1);
       }
 
-      console.log("Token : ", token);
 
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
@@ -32,13 +31,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log("Returning true");
-        console.log(response);
         setLoading(false); // User is authenticated, stop loading
       } catch (err) {
-        console.log(err);
-        console.log("Returning false");
-        router.push('/login');
+        router.push('/');
       }
     }
 
@@ -46,7 +41,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, [router]);
 
   if (loading) {
-    return <div>Loading...</div>; // You can replace this with a loading spinner if you have one
+    return (
+      <div className="flex flex-col items-center justify-between h-screen w-screen bg-[#0F0F0F]">
+    <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+  </svg>
+    </div>
+    )
   }
 
   return (

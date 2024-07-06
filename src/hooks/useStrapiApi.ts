@@ -28,7 +28,6 @@ const useStrapiApi = () => {
       } 
       );
       
-      console.log("FROM STRAPING PRITING: ", response.data);
       return response.data;
     } catch (error) {
       return null;
@@ -43,11 +42,8 @@ const useStrapiApi = () => {
     try {
       const response = await api.post(endpoint, postData);
 
-      console.log("Printing data from strapi hook");
-      console.log(response.data);
       return response.data;
     } catch (error) {
-      console.log("PRITING ERROR", error)
       return null;
     } finally {
       setLoading(false);

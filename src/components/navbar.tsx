@@ -15,10 +15,10 @@ export default function Navbar() {
   const [user, setUser, clearUser] = useLocalStorage('user', '');
 
   return (
-    <div className="flex flex-row justify-between items-center w-full bg-[#1D96AD] px-1 py-2">
+    <div className="flex flex-row justify-between items-center w-full bg-[#1D96AD] px- py-2">
       <Logout />
-      <h1>Ayna Web Chat Application</h1>
-      <span className="text-white font-semibold">@{user.username}</span>
+      {/* <h1>Ayna Web Chat Application</h1> */}
+      <span className="text-white font-semibold mr-1">@{user.username}</span>
     </div>
   );
 }

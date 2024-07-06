@@ -22,6 +22,7 @@ import useStrapiApi from "@/hooks/useStrapiApi";
 import CustomAlert from "@/components/Alert";
 import useLocalStorage from "@/hooks/localStorageHook";
 import { useRouter } from "next/navigation";
+import e from "cors";
 
 export default function Register() {
 
@@ -38,6 +39,12 @@ export default function Register() {
   const [token, setToken, clearToken] = useLocalStorage('jwtToken', '');
   const [user, setUser, clearUser] = useLocalStorage('user', '');
 
+  const [error, setError] = useState({
+    "title": "Registration Failed!",
+    "descripton": "Error Occuerd!"
+  });
+
+
   const { loading, postData } = useStrapiApi();
 
   async function registerUser() {
@@ -47,14 +54,44 @@ export default function Register() {
       password: password,
     };
 
+    if (!username) {
+      setRegistrationError(true);
+      setError({
+        "title": "Missing Field!",
+        "descripton": "Username is missing!"
+      })
+    } else if (!email) {
+      setRegistrationError(true);
+      setError({
+        "title": "Missing Field!",
+        "descripton": "Email is missing!"
+      })
+    } else if (!password) {
+      setRegistrationError(true);
+      setError({
+        "title": "Missing Field!",
+        "descripton": "Password is missing!"
+      })
+    } else if (!confirmPassword) {
+      setRegistrationError(true);
+      setError({
+        "title": "Missing Field!",
+        "descripton": "Confirm Password is missing!"
+      })
+    } else if (password != confirmPassword) {
+      setRegistrationError(true);
+      setError({
+        "title": "Wrong Passwords!",
+        "descripton": "Passwords do not match!"
+      })
+    }
+
     const response = await postData("/auth/local/register", userData);
 
     if (response == null) {
       setRegistrationError(true);
     } else {
       
-    console.log("Printing data from register page");
-    console.log(response);
     setToken(response.jwt);
     setUser(response.user);
     router.push('/chat');
@@ -117,7 +154,7 @@ export default function Register() {
               {" "}
               {loading ? "Siging up..." : "Sign up"}
             </Button>
-            <Link href="/login">
+            <Link href="/">
               <div className="text-xs hover:italic  hover:underline hover:cursor-pointer">
                 Already have account?
               </div>
@@ -127,8 +164,8 @@ export default function Register() {
       </Card>
       {registrationError ? (
         <CustomAlert
-          title={"Registration Failed!"}
-          description={"Invalid Credentials"}
+          title={error.title}
+          description={error.descripton}
           variant="destructive"
           setErrorOrSuccess={() => {
             setRegistrationError(false);

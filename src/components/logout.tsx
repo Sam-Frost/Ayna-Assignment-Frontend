@@ -16,7 +16,7 @@ export default function Logout() {
     <LogOut className="ml-1 transform scale-x-[-1] text-white hover:cursor-pointer" onClick={() => {
       clearToken();  
       clearUser();
-      router.push('/login');
+      router.push('/');
     }} />
   )
 }
