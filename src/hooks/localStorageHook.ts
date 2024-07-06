@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 
 const useLocalStorage = (key: any, initialValue: any) => {
