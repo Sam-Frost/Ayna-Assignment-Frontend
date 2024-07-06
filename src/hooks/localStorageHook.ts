@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 const useLocalStorage = (key: any, initialValue: any) => {
   // Retrieve initial value from localStorage if available
-  const storedValue = localStorage.getItem(key);
+  var storedValue;
+  if (typeof window !== 'undefined') 
+      storedValue = localStorage.getItem(key);
   const initial = storedValue ? JSON.parse(storedValue) : initialValue;
 
   // State to hold the current value
@@ -13,13 +15,15 @@ const useLocalStorage = (key: any, initialValue: any) => {
   // Update localStorage and state value
   const setStoredValue = (newValue: any) => {
     setValue(newValue);
-    localStorage.setItem(key, JSON.stringify(newValue));
+    if (typeof window !== 'undefined') 
+      localStorage.setItem(key, JSON.stringify(newValue));
   };
 
   // Clear the localStorage and state value
   const clearStoredValue = () => {
     setValue(initialValue);
-    localStorage.removeItem(key);
+    if (typeof window !== 'undefined') 
+      localStorage.removeItem(key);
   };
 
   return [value, setStoredValue, clearStoredValue];

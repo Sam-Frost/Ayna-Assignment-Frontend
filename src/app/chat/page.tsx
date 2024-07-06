@@ -29,8 +29,11 @@ export default function Chat() {
   useEffect(() => {
 
     async function isUserAuthenticated() {
-  
-      var token = localStorage.getItem("jwtToken");
+      var token;
+
+      if (typeof window !== 'undefined') {
+      token = localStorage.getItem("jwtToken");
+      }
       if (token)
         token = token.substring(1, token.length - 1)
       console.log("Token : ", token)
