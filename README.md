@@ -24,7 +24,7 @@ cd Ayna-Assignment-Frontend
 
 ```bash
 npm install
-### or
+or
 yarn install
 ```
 3. Create and popluate .env.local 
@@ -36,12 +36,12 @@ NEXT_PUBLIC_WEBSOCKET_URL: `your-backend-websocket-url`
 
 ```bash
 npm run dev
-### or 
+or 
 yarn dev
 ```
 
-## Backend
-
 Open http://localhost:3000 with your browser to see the result.
 
-[Backend](#https://github.com/Sam-Frost/Ayna-Assignment-Backend)
+
+## Backend
+Backend: https://github.com/Sam-Frost/Ayna-Assignment-Backend
