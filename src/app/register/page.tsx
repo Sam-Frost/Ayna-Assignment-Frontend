@@ -77,7 +77,13 @@ export default function Register() {
         "title": "Missing Field!",
         "descripton": "Confirm Password is missing!"
       })
-    } else if (password != confirmPassword) {
+    } else if (password.length < 8) {
+      setRegistrationError(true);
+      setError({
+        "title": "Password too short!",
+        "descripton": "Password should be atleast 8 characters!"
+      })
+    }else if (password != confirmPassword) {
       setRegistrationError(true);
       setError({
         "title": "Wrong Passwords!",
